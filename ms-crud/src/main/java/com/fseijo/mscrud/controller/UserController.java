@@ -23,13 +23,19 @@ public class UserController {
         User newUser = userRepository.save(user);
         return newUser;
     }
-
-    @PutMapping("/update/user")
-    public void updateUserFromTheList(@RequestBody User user){
-        userRepository.save(user);
+    @GetMapping("/user/update/{id}")
+    public User getUserByIDFromTheList(@PathVariable ("id") int id){
+       User user = userRepository.findById(id).orElseThrow(()->new IllegalArgumentException("Invalid user ID:" + id));
+        return user;
     }
-    @DeleteMapping("/delete/user")
-    public void deleteUser(@RequestBody User user){
-        userRepository.deleteById(user.getId());
+    @PostMapping("/user/update/{id}")
+    public User updateUserFromTheList(@PathVariable("id") int id, @RequestBody User user){
+        userRepository.findById(id).orElseThrow(()->new IllegalArgumentException("Invalid user ID:" + id));
+        user.setId(id);
+        return userRepository.save(user);
+    }
+    @DeleteMapping("/user/delete/{id}")
+    public void deleteUserFromTheList(@PathVariable("id") int id){
+        userRepository.deleteById(id);
     }
 }
