@@ -11,4 +11,3 @@
 1. Open project
 2. Create database with name "demo" as configuration in application.properties
 3. Run sql script to create table doc/data.sql
-4. 
